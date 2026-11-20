@@ -4,6 +4,27 @@
   * during the data load itself, or during the method that places people at their seats.
   */
 
-// Attendee.java     Date: __________________
-// @Author ___________________________
+// Attendee.java     
+// @Author ELON KATZ
   
+import java.io.File;                  // Import the File class
+import java.io.FileNotFoundException; // Import this class to handle errors
+import java.util.Scanner;             // Import the Scanner class to read text files
+
+public class Attendee {
+  public static void main(String[] args) {
+    File myObj = new File("names.csv");
+
+    // try-with-resources: Scanner will be closed automatically
+    try (Scanner myReader = new Scanner(myObj)) {
+      while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        String[] arrAttend = data.split(",");
+        System.out.println("Name: " + arrAttend[0] + ", Table: " + arrAttend[1] + ", Seat: " + arrAttend[2]);
+      }
+    } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+    }
+  }
+}
